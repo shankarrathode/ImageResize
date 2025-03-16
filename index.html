@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .section {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        h3, h2 {
+            text-align: center;
+        }
+        input, button, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ My Dashboard Header -->
+    <div class="header">
+        My Dashboard
+    </div>
+
+    <div class="container">
+        
+        <!-- ✅ Image Upload & Customization -->
+        <div class="section">
+            <h2>Upload & Customize Image</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileInput" required><br>
+
+                <label>Width:</label>
+                <input type="number" name="width" value="800"><br>
+
+                <label>Height:</label>
+                <input type="number" name="height" value="800"><br>
+
+                <label>Quality (1-100):</label>
+                <input type="number" name="quality" value="100" min="1" max="100"><br>
+
+                <label>Output Format:</label>
+                <select name="format">
+                    <option value="JPEG">JPEG</option>
+                    <option value="PNG">PNG</option>
+                    <option value="WEBP">WEBP</option>
+                </select><br>
+
+                <button type="submit">Upload & Convert</button>
+            </form>
+
+            <h3>Preview</h3>
+            <img id="preview" src="">
+        </div>
+
+        <!-- ✅ Convert Image to PDF -->
+        <div class="section">
+            <h3>Convert Image to PDF</h3>
+            <form action="/convert-to-pdf" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" required><br>
+                <button type="submit">Convert to PDF</button>
+            </form>
+        </div>
+
+        <!-- ✅ Update Excel Sheet -->
+        <div class="section">
+            <h2>Update Excel Sheet</h2>
+            <form action="/update-excel" method="post">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required><br>
+
+                <label for="remarks">Remarks:</label>
+                <input type="text" id="remarks" name="remarks" required><br>
+
+                <button type="submit">Update Excel</button>
+            </form>
+        </div>
+		<div class="section">
+			<h3>Extract Text from Image</h3>
+				<form action="/image-to-text" method="post" enctype="multipart/form-data">
+					<input type="file" name="file" required><br><br>
+					<button type="submit">Extract & Download Text</button>
+				</form>
+		</div>
+
+        <!-- ✅ Go to Home Button -->
+        <div class="section">
+            <h3>Navigation</h3>
+            <button onclick="window.location.href='/'">Go to Home</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("fileInput").addEventListener("change", function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById("preview").src = reader.result;
+                document.getElementById("preview").style.display = "block";
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+</body>
+</html>
