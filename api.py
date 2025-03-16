@@ -13,11 +13,11 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 EXCEL_FILE = os.path.join(UPLOAD_FOLDER, "data.xlsx")
 
-# Set the path to Tesseract-OCR (Change this if needed)
-# Example for Windows: pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-# For Linux/macOS, it's usually installed in the system path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
+# Only set the Tesseract path if running locally (Windows)
+if os.name == "nt":  # "nt" means Windows
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    pytesseract.pytesseract.tesseract_cmd = "tesseract"  # Linux/Mac use system-installed Tesseract
 # ✅ Ensure upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
