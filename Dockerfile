@@ -1,5 +1,5 @@
-# Use an official Python image with Debian (Tesseract supported)
-FROM python:3.9-slim
+# Use a Python 3.10+ base image
+FROM python:3.10-slim  
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,6 +15,9 @@ WORKDIR /app
 
 # Copy project files
 COPY . .
+
+# Upgrade pip before installing dependencies
+RUN pip install --upgrade pip
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
